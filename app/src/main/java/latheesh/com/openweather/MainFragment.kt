@@ -30,9 +30,8 @@ class MainFragment : Fragment() {
         recyclerView.layoutManager = linearLayoutManager
 
         view.findViewById<Button>(R.id.weatherSubmitButton).setOnClickListener {
-          viewModel._weatherResponse.value=  viewModel.getDetails(
-                view.findViewById<EditText>(R.id.weatherCityEntryText).text.toString(),
-                requireContext()
+            viewModel.getDetails(
+                view.findViewById<EditText>(R.id.weatherCityEntryText).text.toString()
             )
         }
 

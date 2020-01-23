@@ -11,31 +11,31 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import latheesh.com.openweather.model.WeatherResponse
 import latheesh.com.openweather.service.WeatherRetrofit
+import retrofit2.Callback
 import retrofit2.Response
 
 class MainViewModel : ViewModel() {
 
-    var _weatherResponse= MutableLiveData<WeatherResponse>()
+    var _weatherResponse = MutableLiveData<WeatherResponse>()
     var weatherResponse: LiveData<WeatherResponse> = _weatherResponse
     val viewModelScope = CoroutineScope(Dispatchers.IO)
-    var result: Response<WeatherResponse>? = null
-    fun getDetails(cityname: String, context: Context):WeatherResponse? {
-        viewModelScope.launch {
-
-            //api call
-            val response = WeatherRetrofit.getWeatherService()
-                .getForecastDetails(cityname, "json", "66879c0b542dace282b556d688237117")
-             result = response.execute()
-            if ((result as Response<WeatherResponse>?)?.isSuccessful!!) {
-                Log.e("result", (result as Response<WeatherResponse>?)?.body().toString())
-            } else {
-                //error handling
-                Log.e("error", (result as Response<WeatherResponse>?)?.message())
+    fun getDetails(cityname: String) {
+        //api call
+        val response = WeatherRetrofit.getWeatherService()
+            .getForecastDetails(cityname, "json", "66879c0b542dace282b556d688237117")
+        response.enqueue(object : Callback<WeatherResponse> {
+            override fun onFailure(call: retrofit2.Call<WeatherResponse>, t: Throwable) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-        }
+            override fun onResponse(
+                call: retrofit2.Call<WeatherResponse>,
+                response: Response<WeatherResponse>
+            ) {
+                _weatherResponse.value = response.body()
+            }
 
-        return result?.body()
+        })
     }
 
 
