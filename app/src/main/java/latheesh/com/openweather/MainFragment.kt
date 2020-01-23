@@ -37,7 +37,7 @@ class MainFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recycler)
         val linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = linearLayoutManager
-
+        
         view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.INVISIBLE
 
         view.findViewById<Button>(R.id.weatherSubmitButton).setOnClickListener {
