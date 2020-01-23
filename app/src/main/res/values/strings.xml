@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">OpenWeather</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="submit_text">SUBMIT</string>
+    <string name="App_ID">66879c0b542dace282b556d688237117</string>
+    <string name="mode">json</string>
+
+</resources>
