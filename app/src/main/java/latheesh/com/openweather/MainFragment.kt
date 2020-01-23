@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,15 +30,16 @@ class MainFragment : Fragment() {
         recyclerView.layoutManager = linearLayoutManager
 
         view.findViewById<Button>(R.id.weatherSubmitButton).setOnClickListener {
-            viewModel.getDetails(
+          viewModel._weatherResponse.value=  viewModel.getDetails(
                 view.findViewById<EditText>(R.id.weatherCityEntryText).text.toString(),
                 requireContext()
             )
-
-            if (viewModel.weatherResponse != null) {
-                recyclerView.adapter = ForecastListAdapter(viewModel.weatherResponse)
-            }
         }
+
+        viewModel.weatherResponse.observe(viewLifecycleOwner, Observer {
+            recyclerView.adapter = ForecastListAdapter(viewModel.weatherResponse.value)
+
+        })
 
     }
 

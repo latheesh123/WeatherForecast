@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import latheesh.com.openweather.R
 import latheesh.com.openweather.model.WeatherResponse
 
-class ForecastListAdapter(private var forecastList:WeatherResponse?) :
+class ForecastListAdapter(
+    private var forecastList:WeatherResponse?
+) :
     RecyclerView.Adapter<ForecastListAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
-        return forecastList?.list?.size!!
+        return forecastList?.list?.size?:0
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
